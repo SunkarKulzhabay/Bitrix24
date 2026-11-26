@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Проекты — Офис CRM</title>
+  <link rel="stylesheet" href="/css/base.css">
+</head>
+<body>
+  <header class="topbar">
+    <div><a href="/dashboard.html">← Главная</a></div>
+    <div class="topbar-user">
+      <span id="user-name"></span>
+      <button id="logout-button" type="button" class="button-secondary">Выйти</button>
+    </div>
+  </header>
+
+  <main class="page page-wide">
+    <h1>Проекты</h1>
+
+    <details id="create-box" class="card" hidden>
+      <summary>Новый проект</summary>
+      <form id="project-form" novalidate>
+        <div class="form-grid">
+          <div class="span-2">
+            <label for="p-name">Название проекта</label>
+            <input id="p-name" name="name" type="text" required>
+          </div>
+          <div>
+            <label for="p-partner">Партнёр (компания)</label>
+            <input id="p-partner" name="partner_name" type="text" required>
+          </div>
+          <div>
+            <label for="p-contact">Контактное лицо</label>
+            <input id="p-contact" name="contact_person" type="text">
+          </div>
+          <div>
+            <label for="p-phone">Телефон</label>
+            <input id="p-phone" name="phone" type="text">
+          </div>
+          <div>
+            <label for="p-amount">Сумма сделки</label>
+            <input id="p-amount" name="deal_amount" type="number" min="0" step="0.01" value="0">
+          </div>
+          <div>
+            <label for="p-curator">Куратор</label>
+            <select id="p-curator" name="curator_id"></select>
+          </div>
+          <div class="span-all">
+            <label for="p-services">Услуги</label>
+            <textarea id="p-services" name="services" rows="3"></textarea>
+          </div>
+          <div>
+            <button type="submit">Создать проект</button>
+          </div>
+        </div>
+        <p id="project-error" class="form-error" role="alert"></p>
+      </form>
+    </details>
+
+    <section id="board" class="kanban" aria-label="Канбан проектов"></section>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/layout.js"></script>
+  <script src="/js/projects.js"></script>
+</body>
+</html>

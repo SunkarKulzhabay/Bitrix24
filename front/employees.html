@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Сотрудники — Офис CRM</title>
+  <link rel="stylesheet" href="/css/base.css">
+</head>
+<body>
+  <header class="topbar">
+    <div><a href="/dashboard.html">← Главная</a></div>
+    <div class="topbar-user">
+      <span id="user-name"></span>
+      <button id="logout-button" type="button" class="button-secondary">Выйти</button>
+    </div>
+  </header>
+
+  <main class="page page-wide">
+    <h1>Сотрудники</h1>
+
+    <section class="card">
+      <h2>Добавить сотрудника</h2>
+      <form id="employee-form" class="form-grid" novalidate>
+        <div>
+          <label for="f-name">ФИО</label>
+          <input id="f-name" name="full_name" type="text" required>
+        </div>
+        <div>
+          <label for="f-login">Логин</label>
+          <input id="f-login" name="login" type="text" autocomplete="off" required>
+        </div>
+        <div>
+          <label for="f-password">Пароль (от 8 символов)</label>
+          <input id="f-password" name="password" type="password" autocomplete="new-password" required>
+        </div>
+        <div>
+          <label for="f-role">Роль</label>
+          <select id="f-role" name="role">
+            <option value="employee">Сотрудник</option>
+            <option value="manager">Руководитель</option>
+            <option value="hr">HR-специалист</option>
+            <option value="accountant">Бухгалтер</option>
+            <option value="admin">Администратор</option>
+          </select>
+        </div>
+        <div>
+          <button type="submit">Добавить</button>
+        </div>
+      </form>
+      <p id="employee-error" class="form-error" role="alert"></p>
+    </section>
+
+    <section class="card">
+      <h2>Список</h2>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ФИО</th>
+              <th>Логин</th>
+              <th>Роль</th>
+              <th>Статус</th>
+              <th>Действия</th>
+            </tr>
+          </thead>
+          <tbody id="employees-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/layout.js"></script>
+  <script src="/js/employees.js"></script>
+</body>
+</html>

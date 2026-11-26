@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Календарь — Офис CRM</title>
+  <link rel="stylesheet" href="/css/base.css">
+</head>
+<body>
+  <header class="topbar">
+    <div><a href="/dashboard.html">← Главная</a></div>
+    <div class="topbar-user">
+      <span id="user-name"></span>
+      <button id="logout-button" type="button" class="button-secondary">Выйти</button>
+    </div>
+  </header>
+
+  <main class="page page-wide">
+    <div class="calendar-head">
+      <h1>Календарь</h1>
+      <div class="calendar-nav">
+        <button id="prev-month" type="button" class="button-secondary button-small" aria-label="Предыдущий месяц">←</button>
+        <strong id="month-title"></strong>
+        <button id="next-month" type="button" class="button-secondary button-small" aria-label="Следующий месяц">→</button>
+        <button id="today-button" type="button" class="button-secondary button-small">Сегодня</button>
+      </div>
+    </div>
+
+    <div class="calendar-layout">
+      <section id="calendar-grid" class="calendar-grid" aria-label="Календарь"></section>
+
+      <aside class="card calendar-side">
+        <h2 id="day-title">Выберите день</h2>
+        <div id="day-list"></div>
+
+        <h3>Новая встреча или собрание</h3>
+        <form id="event-form" class="side-form" novalidate>
+          <label for="e-title">Название</label>
+          <input id="e-title" name="title" type="text" required>
+
+          <label for="e-kind">Тип</label>
+          <select id="e-kind" name="kind">
+            <option value="meeting">Встреча</option>
+            <option value="assembly">Собрание</option>
+          </select>
+
+          <label for="e-date">Дата</label>
+          <input id="e-date" name="date" type="date" required>
+
+          <div class="time-row">
+            <div>
+              <label for="e-start">Начало</label>
+              <input id="e-start" name="start" type="time" value="10:00" required>
+            </div>
+            <div>
+              <label for="e-end">Конец</label>
+              <input id="e-end" name="end" type="time" value="11:00" required>
+            </div>
+          </div>
+
+          <label for="e-place">Место</label>
+          <input id="e-place" name="place" type="text">
+
+          <label for="e-participants">Участники (Ctrl для нескольких)</label>
+          <select id="e-participants" name="participants" multiple size="6"></select>
+
+          <p id="event-error" class="form-error" role="alert"></p>
+          <button type="submit">Создать</button>
+        </form>
+      </aside>
+    </div>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/layout.js"></script>
+  <script src="/js/calendar.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Документ — Офис CRM</title>
+  <link rel="stylesheet" href="/css/base.css">
+</head>
+<body>
+  <header class="topbar">
+    <div><a href="/documents.html">← Все документы</a></div>
+    <div class="topbar-user">
+      <span id="user-name"></span>
+      <button id="logout-button" type="button" class="button-secondary">Выйти</button>
+    </div>
+  </header>
+
+  <main class="page page-wide">
+    <div class="task-head no-print">
+      <h1 id="doc-title"></h1>
+      <span id="doc-status" class="badge"></span>
+    </div>
+
+    <div class="no-print">
+      <button id="print-button" type="button" class="button-secondary">Печать / сохранить в PDF</button>
+    </div>
+
+    <article id="paper" class="paper">
+      <div id="doc-text" class="paper-text"></div>
+      <div id="stamp" class="stamp" hidden></div>
+    </article>
+
+    <section id="send-card" class="card no-print" hidden>
+      <h2>Отправить на одобрение</h2>
+      <form id="send-form" novalidate>
+        <div class="form-grid">
+          <div>
+            <label for="approver">Кому</label>
+            <select id="approver"></select>
+          </div>
+          <div>
+            <button type="submit">Отправить</button>
+          </div>
+        </div>
+        <p id="send-error" class="form-error" role="alert"></p>
+      </form>
+    </section>
+
+    <section id="decide-card" class="card no-print" hidden>
+      <h2>Ваше решение</h2>
+      <label for="decision-comment">Комментарий (при отклонении обязателен)</label>
+      <textarea id="decision-comment" rows="3"></textarea>
+      <div class="actions decision-actions">
+        <button id="approve-button" type="button">Одобрить</button>
+        <button id="reject-button" type="button" class="button-secondary">Отклонить</button>
+      </div>
+      <p id="decide-error" class="form-error" role="alert"></p>
+    </section>
+
+    <section class="card no-print">
+      <h2>Ход одобрения</h2>
+      <ul id="approvals" class="history"></ul>
+    </section>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/layout.js"></script>
+  <script src="/js/document.js"></script>
+</body>
+</html>

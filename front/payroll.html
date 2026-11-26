@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Зарплата — Офис CRM</title>
+  <link rel="stylesheet" href="/css/base.css">
+</head>
+<body>
+  <header class="topbar">
+    <div><a href="/dashboard.html">← Главная</a></div>
+    <div class="topbar-user">
+      <span id="user-name"></span>
+      <button id="logout-button" type="button" class="button-secondary">Выйти</button>
+    </div>
+  </header>
+
+  <main class="page page-wide">
+    <div class="calendar-head">
+      <h1>Зарплата</h1>
+      <div class="payroll-filters">
+        <div>
+          <label for="month">Месяц</label>
+          <input id="month" type="month">
+        </div>
+        <div id="employee-pick" hidden>
+          <label for="employee">Сотрудник</label>
+          <select id="employee"></select>
+        </div>
+      </div>
+    </div>
+
+    <section class="card">
+      <h2 id="summary-title">Расчёт</h2>
+      <div id="summary"></div>
+    </section>
+
+    <section id="overview-card" class="card" hidden>
+      <h2>Все сотрудники за месяц</h2>
+      <p class="muted">Нажми на строку, чтобы открыть расчёт сотрудника.</p>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Сотрудник</th>
+              <th>Оклад</th>
+              <th>По проектам</th>
+              <th>KPI</th>
+              <th>Штрафы</th>
+              <th>Итого</th>
+            </tr>
+          </thead>
+          <tbody id="overview-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="finance-tools" class="tools-grid" hidden>
+      <div class="card">
+        <h2>Оклад выбранного сотрудника</h2>
+        <form id="salary-form" novalidate>
+          <div class="form-grid">
+            <div>
+              <label for="base-salary">Оклад в месяц</label>
+              <input id="base-salary" name="base_salary" type="number" min="0" step="0.01" value="0">
+            </div>
+            <div><button type="submit">Сохранить</button></div>
+          </div>
+          <p class="form-error" role="alert"></p>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>Запись в табель выбранному сотруднику</h2>
+        <form id="entry-form" novalidate>
+          <div class="form-grid">
+            <div class="span-2">
+              <label for="e-project">Проект</label>
+              <select id="e-project" name="project_id"></select>
+            </div>
+            <div>
+              <label for="e-date">Дата</label>
+              <input id="e-date" name="work_date" type="date">
+            </div>
+            <div>
+              <label for="e-hours">Часы</label>
+              <input id="e-hours" name="hours" type="number" min="0" max="24" step="0.01">
+            </div>
+            <div>
+              <label for="e-amount">Сумма</label>
+              <input id="e-amount" name="amount" type="number" min="0" step="0.01">
+            </div>
+            <div class="span-all">
+              <label for="e-description">За что</label>
+              <input id="e-description" name="description" type="text">
+            </div>
+            <div><button type="submit">Добавить запись</button></div>
+          </div>
+          <p class="form-error" role="alert"></p>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>Конструктор KPI: новая метрика</h2>
+        <form id="metric-form" novalidate>
+          <div class="form-grid">
+            <div class="span-2">
+              <label for="k-name">Название (например, «Закрытых сделок»)</label>
+              <input id="k-name" name="metric_name" type="text">
+            </div>
+            <div>
+              <label for="k-target">Цель</label>
+              <input id="k-target" name="target_value" type="number" min="0" step="0.01">
+            </div>
+            <div>
+              <label for="k-bonus">Премия за цель</label>
+              <input id="k-bonus" name="bonus_amount" type="number" min="0" step="0.01">
+            </div>
+            <div class="span-2">
+              <label for="k-mode">Как считать</label>
+              <select id="k-mode" name="mode">
+                <option value="proportional">Пропорционально (до 100%)</option>
+                <option value="all_or_nothing">Всё или ничего</option>
+              </select>
+            </div>
+            <div><button type="submit">Добавить метрику</button></div>
+          </div>
+          <p class="form-error" role="alert"></p>
+        </form>
+        <ul id="metrics-list" class="history"></ul>
+      </div>
+
+      <div class="card">
+        <h2>KPI: результат выбранного сотрудника за месяц</h2>
+        <form id="result-form" novalidate>
+          <div class="form-grid">
+            <div class="span-2">
+              <label for="r-metric">Метрика</label>
+              <select id="r-metric" name="metric_id"></select>
+            </div>
+            <div>
+              <label for="r-actual">Факт</label>
+              <input id="r-actual" name="actual_value" type="number" min="0" step="0.01">
+            </div>
+            <div><button type="submit">Сохранить</button></div>
+          </div>
+          <p class="form-error" role="alert"></p>
+        </form>
+      </div>
+    </section>
+
+    <section id="penalty-card" class="card" hidden>
+      <h2>Назначить штраф</h2>
+      <form id="penalty-form" novalidate>
+        <div class="form-grid">
+          <div>
+            <label for="p-employee">Сотрудник</label>
+            <select id="p-employee" name="employee_id"></select>
+          </div>
+          <div>
+            <label for="p-amount">Сумма</label>
+            <input id="p-amount" name="amount" type="number" min="0" step="0.01">
+          </div>
+          <div>
+            <label for="p-date">Дата</label>
+            <input id="p-date" name="issued_at" type="date">
+          </div>
+          <div class="span-all">
+            <label for="p-reason">Причина</label>
+            <input id="p-reason" name="reason" type="text">
+          </div>
+          <div><button type="submit">Назначить штраф</button></div>
+        </div>
+        <p class="form-error" role="alert"></p>
+      </form>
+    </section>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/layout.js"></script>
+  <script src="/js/payroll.js"></script>
+</body>
+</html>

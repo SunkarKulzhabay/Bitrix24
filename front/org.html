@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Оргструктура — Офис CRM</title>
+  <link rel="stylesheet" href="/css/base.css">
+</head>
+<body>
+  <header class="topbar">
+    <div><a href="/dashboard.html">← Главная</a></div>
+    <div class="topbar-user">
+      <span id="user-name"></span>
+      <button id="logout-button" type="button" class="button-secondary">Выйти</button>
+    </div>
+  </header>
+
+  <main class="page page-wide">
+    <h1>Оргструктура</h1>
+
+    <section class="card">
+      <h2>Кто кому подчиняется</h2>
+      <div id="tree"></div>
+    </section>
+
+    <section id="catalogs" class="catalog" hidden>
+      <div class="card">
+        <h2>Отделы</h2>
+        <form id="department-form" class="inline-form" novalidate>
+          <input name="name" type="text" placeholder="Название отдела" aria-label="Название отдела">
+          <button type="submit">Добавить</button>
+        </form>
+        <p class="form-error" role="alert"></p>
+        <div id="departments-list"></div>
+      </div>
+
+      <div class="card">
+        <h2>Должности</h2>
+        <form id="position-form" class="inline-form" novalidate>
+          <input name="name" type="text" placeholder="Название должности" aria-label="Название должности">
+          <button type="submit">Добавить</button>
+        </form>
+        <p class="form-error" role="alert"></p>
+        <div id="positions-list"></div>
+      </div>
+    </section>
+
+    <section id="assign-card" class="card" hidden>
+      <h2>Назначения сотрудников</h2>
+      <div class="table-wrap">
+        <table class="table assign-table">
+          <thead>
+            <tr>
+              <th>Сотрудник</th>
+              <th>Отдел</th>
+              <th>Должность</th>
+              <th>Руководитель</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="assign-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 id="history-title">История кадров</h2>
+
+      <div id="history-pick" hidden>
+        <label for="history-employee">Сотрудник</label>
+        <select id="history-employee"></select>
+      </div>
+
+      <ul id="staff-history" class="history"></ul>
+
+      <form id="history-form" hidden novalidate>
+        <h3>Добавить запись</h3>
+        <div class="form-grid">
+          <div>
+            <label for="h-type">Событие</label>
+            <select id="h-type" name="event_type">
+              <option value="replaced">Замена</option>
+              <option value="moved_to_project">Переход на другой проект</option>
+              <option value="note">Заметка</option>
+            </select>
+          </div>
+          <div id="h-related-box">
+            <label for="h-related">Кем заменён</label>
+            <select id="h-related" name="related_employee_id"></select>
+          </div>
+          <div>
+            <label for="h-date">Дата</label>
+            <input id="h-date" name="event_date" type="date">
+          </div>
+          <div class="span-all">
+            <label for="h-comment">Комментарий</label>
+            <input id="h-comment" name="comment" type="text">
+          </div>
+          <div><button type="submit">Добавить</button></div>
+        </div>
+        <p class="form-error" role="alert"></p>
+      </form>
+    </section>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/layout.js"></script>
+  <script src="/js/org.js"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Проект — Офис CRM</title>
+  <link rel="stylesheet" href="/css/base.css">
+</head>
+<body>
+  <header class="topbar">
+    <div><a href="/projects.html">← Все проекты</a></div>
+    <div class="topbar-user">
+      <span id="user-name"></span>
+      <button id="logout-button" type="button" class="button-secondary">Выйти</button>
+    </div>
+  </header>
+
+  <main class="page page-wide">
+    <div class="task-head">
+      <h1 id="p-title"></h1>
+      <span id="p-stage" class="badge"></span>
+    </div>
+
+    <section class="card">
+      <dl id="p-info" class="info-list"></dl>
+    </section>
+
+    <section id="stage-card" class="card" hidden>
+      <h2>Стадия</h2>
+      <form id="stage-form" novalidate>
+        <div class="form-grid">
+          <div>
+            <label for="s-stage">Перенести в</label>
+            <select id="s-stage"></select>
+          </div>
+          <div id="reason-box" class="span-2" hidden>
+            <label for="s-reason">Причина отказа</label>
+            <input id="s-reason" type="text">
+          </div>
+          <div>
+            <button type="submit">Перенести</button>
+          </div>
+        </div>
+        <p id="stage-error" class="form-error" role="alert"></p>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Участники и подчинение</h2>
+      <div id="members"></div>
+
+      <form id="member-form" hidden novalidate>
+        <div class="form-grid">
+          <div>
+            <label for="m-employee">Сотрудник</label>
+            <select id="m-employee"></select>
+          </div>
+          <div>
+            <label for="m-role">Роль в проекте</label>
+            <input id="m-role" type="text" required>
+          </div>
+          <div>
+            <label for="m-reports">Подчиняется</label>
+            <select id="m-reports"></select>
+          </div>
+          <div>
+            <button type="submit">Добавить участника</button>
+          </div>
+        </div>
+        <p id="member-error" class="form-error" role="alert"></p>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>История стадий</h2>
+      <ul id="history" class="history"></ul>
+    </section>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/layout.js"></script>
+  <script src="/js/project.js"></script>
+</body>
+</html>
